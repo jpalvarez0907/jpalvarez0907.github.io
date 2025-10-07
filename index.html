@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My portfolio</title>
+  <meta name="description" content="Portafolio personal — Juan Pablo Álvarez. , proyectos, habilidades y contacto." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#050507;
+      --card:#0b0c10;
+      --neon-1:#00e6ff; /* cyan */
+      --neon-2:#ff3ec5; /* pink */
+      --neon-3:#7eff6b; /* green */
+      --glass: rgba(255,255,255,0.03);
+      --mono: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:var(--mono);background:radial-gradient(ellipse at 10% 10%, rgba(0,230,255,0.03), transparent 8%), radial-gradient(ellipse at 90% 90%, rgba(255,62,197,0.03), transparent 8%), var(--bg);color:#e6eef8;}
+    a{color:inherit;text-decoration:none}
+
+    /* NAV */
+    header{position:fixed;left:0;right:0;top:18px;display:flex;justify-content:center;z-index:40;pointer-events:none}
+    .nav-wrap{width:95%;max-width:1100px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);backdrop-filter: blur(6px);border-radius:999px;padding:6px;display:flex;align-items:center;gap:8px;pointer-events:auto}
+    .brand{display:flex;align-items:center;gap:10px;padding:6px 14px;border-radius:999px}
+    .logo{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,var(--neon-1),var(--neon-2));box-shadow:0 6px 24px rgba(0,0,0,0.6), 0 0 16px 2px rgba(0,230,255,0.08) inset;display:grid;place-items:center;font-weight:800;color:#050507}
+    nav{margin-left:auto;display:flex;gap:6px}
+    nav a{padding:8px 12px;border-radius:999px;font-weight:600;opacity:0.9}
+    nav a:hover{transform:translateY(-2px);}
+
+    /* HERO */
+    .hero{min-height:100vh;display:grid;place-items:center;padding:120px 24px 80px;position:relative;overflow:hidden}
+    .hero-grid{width:100%;max-width:1100px;display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:center}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:28px;box-shadow:0 10px 40px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.04)}
+    h1{font-size:clamp(30px,6vw,48px);margin:0 0 8px;letter-spacing:-0.02em}
+    .role{font-weight:600;color:#9fb7ff;margin-bottom:14px}
+    .lead{color:#dbe9ff;line-height:1.45}
+
+    .cta{display:flex;gap:12px;margin-top:16px}
+    .btn{padding:10px 16px;border-radius:12px;font-weight:700;border:1px solid rgba(255,255,255,0.06);background:transparent;cursor:pointer}
+    .btn-primary{background:linear-gradient(90deg,var(--neon-1),var(--neon-2));color:#050507;box-shadow:0 6px 30px rgba(0,230,255,0.08),0 0 24px rgba(255,62,197,0.06);}
+
+    /* neon text */
+    .neon{color:var(--neon-1);text-shadow:0 0 8px rgba(0,230,255,0.12),0 0 24px rgba(0,230,255,0.06);}
+
+    /* SIDEBAR CARD */
+    .profile-pic{width:100%;height:380px;border-radius:12px;background:linear-gradient(135deg,var(--neon-2),var(--neon-1));display:flex;align-items:center;justify-content:center;color:#050507;font-weight:800;font-size:26px;box-shadow:0 10px 40px rgba(0,0,0,0.6)}
+    .stats{display:flex;gap:12px;margin-top:12px}
+    .stat{flex:1;background:var(--glass);padding:10px;border-radius:10px;text-align:center;border:1px solid rgba(255,255,255,0.02)}
+
+    /* SECTIONS */
+    section{width:100%;max-width:1100px;margin:50px auto;padding:0 24px}
+    .section-title{display:flex;align-items:end;gap:12px;margin-bottom:18px}
+    .section-title h2{margin:0;font-size:20px}
+    .section-title .accent{height:6px;width:120px;border-radius:999px;background:linear-gradient(90deg,var(--neon-1),var(--neon-2));box-shadow:0 6px 30px rgba(0,230,255,0.06)}
+
+    /* Skills */
+    .skills{display:flex;flex-wrap:wrap;gap:12px}
+    .skill{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);font-weight:600}
+
+    /* Projects */
+    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .project{padding:16px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03);position:relative;overflow:hidden}
+    .project:hover{transform:translateY(-6px)}
+    .project .top{display:flex;justify-content:space-between;align-items:center}
+    .project .tags{display:flex;gap:8px;margin-top:12px}
+    .tag{padding:6px 10px;border-radius:999px;font-size:13px;border:1px solid rgba(255,255,255,0.03);}
+
+    /* contact */
+    .contact-grid{display:grid;grid-template-columns:1fr 340px;gap:18px}
+    .input,textarea{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    textarea{min-height:140px;resize:vertical}
+
+    /* Footer */
+    footer{padding:28px 24px;text-align:center;color:#94a6d8}
+
+    /* neon glow effects on hover */
+    .glow:hover{box-shadow:0 8px 40px rgba(0,230,255,0.08),0 0 36px rgba(255,62,197,0.06)}
+
+    /* responsive */
+    @media (max-width:920px){
+      .hero-grid{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+    }
+
+    /* animated background canvas container */
+    #bg-canvas{position:fixed;inset:0;z-index:0;pointer-events:none}
+    .content{position:relative;z-index:10}
+
+    /* subtle entrance animations */
+    .fade-in{opacity:0;transform:translateY(10px);animation:fadeIn 0.8s forwards}
+    @keyframes fadeIn{to{opacity:1;transform:none}}
+
+  </style>
+</head>
+<body>
+  <canvas id="bg-canvas"></canvas>
+
+  <header>
+    <div class="nav-wrap">
+      <div class="brand">
+        <div class="logo">JP</div>
+        <div style="line-height:1">
+          <div style="font-weight:800">Juan Pablo</div>
+          <div style="font-size:12px;color:#9fb7ff">Desarrollador web</div>
+        </div>
+      </div>
+      <nav>
+        <a href="#inicio">Inicio</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#habilidades">Habilidades</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="content">
+    <section id="inicio" class="hero">
+      <div class="hero-grid">
+        <div class="card fade-in">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="border-radius:10px;padding:8px 12px;background:linear-gradient(90deg,var(--neon-1),var(--neon-2));color:#050507;font-weight:800">Hola</div>
+            <div style="opacity:0.9">Portafolio profesional</div>
+          </div>
+
+          <h1 class="neon" style="margin-top:20px">I am  Juan Pablo — web developer</h1>
+          <div class="role">Frontend • HTML • CSS • JavaScript • WordPress</div>
+          <p class="lead"> I design clean interfaces. I specialize in responsive pages, animations, and user experience. I also completed a degree in systems engineering and computer science, where I acquired knowledge in web development and SQL databases. These are my skills.</p>
+          <div class="cta">
+           
+          </div>
+
+          <div class="stats" style="margin-top:18px">
+            <div class="stat">
+             <div style=" font-weight: 800; font: size 15px; ;"> TECNICO DE SISTEMAS </div>
+              <div style="font-size:12px;color:#9fb7ff">Conocimientos en programación y Base de Datos </div>
+            </div>
+            <div class="stat">
+              <div style="font-weight:800;font-size:15px">TECNOLOGICO DE ANTIOQUIA </div>
+              <div style="font-size:12px;color:#9fb7ff">Estudiante de Ingenieria de Sotfware </div>
+            </div>
+            <div class="stat">
+              <div style="font-weight:800;font-size:20px">GitHub</div>
+              <div style="font-size:12px;color:#9fb7ff">jpalvarez0907</div>
+            </div>
+          </div>
+
+        </div>
+
+        <aside class="card fade-in" style="display:flex;flex-direction:column">
+          <div class="profile-pic"><img src="imeges/fotojp.png" width="50%"></div>
+          <div style="margin-top:12px"> 
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div style="font-weight:800">Diseño & Código</div>
+                <div style="font-size:13px;color:#9fb7ff">UI / UX • Frontend</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-weight:800">Disponible</div>
+                <div style="font-size:12px;color:#9fb7ff">Remote / Freelance</div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;display:flex;gap:8px;justify-content:space-between">
+              <a class="btn glow" href="https://github.com/jpalvarez0907" target="_blank">GitHub</a>
+              <a class="btn glow" href="#contacto">Contactar</a>
+            </div>
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <section id="habilidades">
+      <div class="section-title">
+        <h2>Habilidades</h2>
+        <div class="accent"></div>
+      </div>
+      <div class="card">
+        <div class="skills">
+          <div class="skill">HTML</div>
+          <div class="skill">CSS</div>
+          <div class="skill">JavaScript</div>
+          <div class="skill">WordPress</div>
+          
+          <div class="skill">Git / GitHub</div>
+          <div class="skill">Figma (UI)</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proyectos">
+      <div class="section-title">
+        <h2>Proyectos</h2>
+        <div class="accent"></div>
+      </div>
+      <div class="projects-grid">
+        <article class="project card">
+          <div class="top">
+            <div style="font-weight:800">Tienda e-commerce</div>
+            <div style="font-size:13px;color:#9fb7ff">2025</div>
+          </div>
+          <p style="margin-top:12px">Sitio ecommerce hecho en WordPress con diseño personalizado y optimización móvil.</p>
+          <div class="tags">
+            <div class="tag">WordPress</div>
+            <div class="tag">WooCommerce</div>
+            <div class="tag">Responsive</div>
+          </div>
+        </article>
+
+        <article class="project card">
+          <div class="top">
+            <div style="font-weight:800">Dashboard Analítico</div>
+            <div style="font-size:13px;color:#9fb7ff">2024</div>
+          </div>
+          <p style="margin-top:12px">Dashboard interactivo con gráficas y tablas, filtrado dinámico y exportación de datos.</p>
+          <div class="tags">
+            <div class="tag">JavaScript</div>
+            <div class="tag">Charts</div>
+            <div class="tag">UX</div>
+          </div>
+        </article>
+
+        <article class="project card">
+          <div class="top">
+            <div style="font-weight:800">Portfolio Animado</div>
+            <div style="font-size:13px;color:#9fb7ff">2023</div>
+          </div>
+          <p style="margin-top:12px">Sitio personal con animaciones CSS y microinteracciones para mostrar proyectos.</p>
+          <div class="tags">
+            <div class="tag">HTML</div>
+            <div class="tag">CSS</div>
+            <div class="tag">Animations</div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="section-title">
+        <h2>Contacto</h2>
+        <div class="accent"></div>
+      </div>
+      <div class="card">
+        <div class="contact-grid">
+          <form onsubmit="sendEmail(event)">
+            <input class="input" id="name" placeholder="Tu nombre" required />
+            <input class="input" id="email" type="email" placeholder="jptrabajo147@gmail.com" required />
+            <input class="input" id="subject" placeholder="Asunto" />
+            <textarea id="message" placeholder="Escribe tu mensaje" required></textarea>
+            <div style="margin-top:10px;display:flex;gap:8px">
+              <button class="btn btn-primary" type="submit">Enviar</button>
+              <button class="btn" type="button" onclick="copyEmail()">Copiar correo</button>
+            </div>
+          </form>
+
+          <aside style="padding-left:12px;border-left:1px solid rgba(255,255,255,0.03)">
+            <div style="font-weight:800">¿Prefieres mensaje directo?</div>
+            <div style="margin-top:8px;color:#9fb7ff">jptrabajo147 (correo)</div>
+            <div style="margin-top:14px">Redes</div>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <a class="btn" href="#">GitHub</a>
+              <a class="btn" href="#">LinkedIn</a>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © Juan Pablo Álvarez — Hecho con ❤️ • Estudiante Ing Sotfware
+    </footer>
+  </main>
+
+  <script>
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const href=a.getAttribute('href');
+        if(href.startsWith('#')){
+          const el=document.querySelector(href);
+          if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'});}
+        }
+      })
+    })
+
+    // simple contact actions
+    function sendEmail(e){
+      e.preventDefault();
+      const name=document.getElementById('name').value;
+      const email=document.getElementById('email').value;
+      const subject=document.getElementById('subject').value || 'Contacto desde portafolio';
+      const message=document.getElementById('message').value;
+      const mailto = `mailto:jptrabajo147?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('Nombre: '+name+'\nEmail: '+email+'\n\n'+message)}`;
+      window.location.href = mailto;
+    }
+    function copyEmail(){
+      navigator.clipboard?.writeText('jptrabajo147')
+        .then(()=>alert('Correo copiado'))
+        .catch(()=>alert('No fue posible copiar'))
+    }
+
+    // Animated neon particles background
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let w=canvas.width=innerWidth; let h=canvas.height=innerHeight;
+    window.addEventListener('resize',()=>{w=canvas.width=innerWidth;h=canvas.height=innerHeight;});
+
+    const colors = ['rgba(0,230,255,0.95)','rgba(255,62,197,0.92)','rgba(126,255,107,0.9)'];
+    const particles = [];
+    for(let i=0;i<80;i++){
+      particles.push({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-0.5)*0.4,vy:(Math.random()-0.5)*0.4,r:Math.random()*2+0.6,c:colors[i%colors.length]});
+    }
+    function draw(){
+      ctx.clearRect(0,0,w,h);
+      // subtle gradient overlay
+      const g = ctx.createLinearGradient(0,0,w,h);
+      g.addColorStop(0,'rgba(0,0,0,0)');
+      g.addColorStop(1,'rgba(0,0,0,0.2)');
+      ctx.fillStyle = g; ctx.fillRect(0,0,w,h);
+
+      for(const p of particles){
+        p.x += p.vx; p.y += p.vy;
+        if(p.x<0||p.x>w) p.vx *= -1;
+        if(p.y<0||p.y>h) p.vy *= -1;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        // glow
+        ctx.fillStyle = p.c; ctx.shadowColor = p.c; ctx.shadowBlur = 16; ctx.fill(); ctx.shadowBlur = 0;
+      }
+
+      // connect nearby particles with neon lines
+      for(let i=0;i<particles.length;i++){
+        for(let j=i+1;j<particles.length;j++){
+          const a=particles[i], b=particles[j];
+          const dx=a.x-b.x, dy=a.y-b.y;
+          const dist = Math.sqrt(dx*dx+dy*dy);
+          if(dist<120){
+            ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y);
+            ctx.strokeStyle = 'rgba(80,200,255,'+(1-dist/120)*0.08+')';
+            ctx.lineWidth = 1; ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+    draw();
+  </script>
+</body>
+</html>
